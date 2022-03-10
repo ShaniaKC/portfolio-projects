@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Javascript</title>
+</head>
+<body>
+    <main>
+        <h1>My Calculator</h1>
+        <section class="calculator-container">
+            <section class="display-wrapper">
+                <div id="history"></div>
+                <input type="text" value="9999" id="inputField">
+            </section>
+            <section class="input-wrapper">
+                <button class="input-btn " id="clearAll">C</button>
+                <button class="input-btn " id="clearEntry">CE</button>
+                <button class="input-btn operator" data-operator="(" id="openPara" disabled="disabled"> (</button>
+                <button class="input-btn operator" data-operator=")" id="closePara" disabled="disabled"> )</button>
+                <button class="input-btn operator" data-operator="+" id="plus"> +</button>
+                <button class="input-btn number" data-number="9" id="no9">9</button>
+                <button class="input-btn number" data-number="8" id="no8">8</button>
+                <button class="input-btn number" data-number="7" id="no7">7</button>
+                <button class="input-btn number" data-number="6" id="no6">6</button>
+                <button class="input-btn operator" data-operator="-" id="minus"> -</button>
+                <button class="input-btn number" data-number="5" id="no5">5</button>
+                <button class="input-btn number" data-number="4" id="no4">4</button>
+                <button class="input-btn number" data-number="3" id="no3">3</button>
+                <button class="input-btn number" data-number="2" id="no2">2</button>
+                <button class="input-btn operator" data-operator="/" id="divide"> &#xf7;</button>
+                <button class="input-btn number" data-number="1" id="no1">1</button>
+                <button class="input-btn number" data-number="0" id="no0">0</button>
+                <button class="input-btn number" data-number="." id="period">.</button>
+                <button class="input-btn operator" data-operator="=" id="equal"> =</button>       
+                <button class="input-btn operator" data-operator="*" id="multiply"> &#8855;</button>      
+                <!-- <button class="input-btn operator" data-operator="^" id="power">^</button> -->
+               
+               
+               
+            </section>
+        </section>
+    </main>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            color: #333;
+        }
+                
+        ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: var(--grey);
+        }
+        ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: linear-gradient(left, #999, #888);
+        -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8);
+        box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(left, #888, #777);
+        }
+
+        body {
+            font-size: 1.5rem;
+        }
+        h1{
+            color: white;
+            text-align: center;
+            margin-bottom: .5rem;
+        }
+        main{
+            background: blue url('./pexels-pixabay-326055.jpg') no-repeat fixed;
+            padding: 2rem 3rem;
+            min-height: 100vh;
+            background-size: cover;
+        }
+        .calculator-container {
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 1rem;
+            min-height: 80vh;
+            max-width: 600px;
+            margin: auto;
+            display: grid;
+            grid-template-rows: 1fr 3fr;
+            box-shadow: rgba(74, 74, 110, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+         
+        }
+        .display-wrapper {
+            padding: 0.5rem 0.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 30% 70%;
+            place-items: end;
+            letter-spacing: .2rem;
+            text-align: right;
+        }
+        .display-wrapper input {
+            width: 100%;
+            letter-spacing: inherit;
+            background-color: rgba(255, 255, 255, 0.35);
+            border: none;
+            outline: none;
+            padding: .5rem 1rem;
+            font-size: 2rem;
+           text-align: inherit;
+        }
+        #history {
+            width: 100%;
+        }
+        .display-wrapper input,
+        #history {
+            overflow: auto;
+        }
+        .input-wrapper{
+            display: grid;
+            gap: .5rem 1rem;
+            padding: 1rem;
+            grid-template-columns: repeat(5,1fr);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 0 0 1rem 1rem;
+        }
+        .input-btn {
+           /* border: 1px solid #333; */
+           /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
+              /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            background-color: transparent;
+            font-size: inherit;
+            border: none;
+            outline: none;
+            place-content: center;
+            cursor: pointer;
+        }
+        .input-btn:hover {
+
+        }
+        .input-btn:disabled {
+           color: rgb(189, 188, 188);
+        }
+        .operator {
+            font-size: 2rem;
+        }
+    </style>
+
+    <script>
+
+const inputField = document.getElementById("inputField")
+const history = document.getElementById("history")
+const  clearAll = document.getElementById("clearAll")        
+const  clearEntry = document.getElementById("clearEntry")
+const  openPara = document.getElementById("openPara")
+const  closePara = document.getElementById("closePara")
+const  equal = document.getElementById("equal")
+const dataValue = document.querySelectorAll('.number, .operator')
+inputField.focus()
+
+
+const dataValueList = []
+
+
+// inputField.addEventListener('keypress', (e) => {
+//     if (dataValueList.indexOf(e.key) == -1 || e.keyCode == 13 || e.key == '=')  e.preventDefault();
+//     else setInputValue(e.target.value)
+// })
+
+
+const setEnteredValue = (a) => inputField.value = a;
+
+const formatForDisplay = (a) => {
+  
+    if(!isNaN(a)) { 
+        return Number(a).toLocaleString()
+    }  
+    else{
+        let f = [];
+        let hasComma = /,+/g
+        let match =  a.match(/([0-9|,])+|.|[^\s]/g)
+
+        match.forEach(i => {
+         if (hasComma.test(i)) {
+            let n = Number(i.split(',').join(''))
+            return f.push(Number(n).toLocaleString())
+        }
+        else if (!isNaN(i)) return f.push(Number(i).toLocaleString()) 
+        else return f.push(i);
+       })
+      
+      return f.join('')
+    }
+  
+}
+
+const formatForEval = (a) => {
+    return a.replace(/,/g, '')
+}
+
+const evaluateResult = () => {
+    let regex = /\(/g
+    let value = inputField.value
+    history.innerHTML = '';
+    history.innerHTML = value;
+    let final = regex.test(value)
+    ? (eval(formatForEval(value.replace(/\(/g, '*(')))).replace(/\*\(/g, '(')
+    : value
+    inputField.value = formatForDisplay(eval(formatForEval(final)));
+}
+
+inputField.addEventListener('keypress', (e) => {
+    if (dataValueList.indexOf(e.key) != -1 || e.keyCode != 13 || e.key != '=')
+     {inputField.value = formatForDisplay(e.target.value)}
+        else{ e.preventDefault()}
+})
+
+inputField.addEventListener('input', (e) => {
+    let store = e.target.value;
+    inputField.value = formatForDisplay(store);
+});
+
+dataValue.forEach((el) => {
+    const elemValue = el.dataset.number || el.dataset.operator
+    // dataValueList.push(elemValue);
+
+    el.addEventListener('click', (e) => {
+      if(elemValue !== '=') inputField.value = (formatForDisplay(inputField.value + elemValue));
+      inputField.focus()
+    })
+
+})
+
+document.addEventListener('keypress', (e) => {
+    (e.keyCode == 13 || e.key == '=') && evaluateResult(); 
+})
+
+equal.addEventListener('click', evaluateResult);
+
+clearEntry.addEventListener('click', () => {
+    let a = inputField.value;
+    inputField.value = a.substring(0, a.length - 1)
+    inputField.focus()
+})
+clearAll.addEventListener('click', () => {
+    inputField.value = ''
+    history.innerHTML = ''
+    inputField.focus()
+})
+    </script>
+</body>
+</html>
